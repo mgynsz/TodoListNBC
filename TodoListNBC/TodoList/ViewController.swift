@@ -19,10 +19,15 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         setupUI()
         
+//        if let navigationBar = navigationController?.navigationBar {
+//                let textAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10)]
+//                navigationBar.titleTextAttributes = textAttributes
+//            }
+        
     }
     
     private func setupUI() -> Void {
-        self.title = "TODO LIST"
+        self.title = "ToDo"
         addTodoButton()
     }
     
@@ -114,6 +119,6 @@ extension ViewController: UITableViewDataSource {
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 48 // 원하는 셀의 높이로 조절
+        return 68 // 원하는 셀의 높이로 조절
     }
 }

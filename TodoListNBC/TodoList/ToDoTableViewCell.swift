@@ -33,7 +33,7 @@ class ToDoTableViewCell: UITableViewCell {
             
             // 날짜
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM.dd"
+            dateFormatter.dateFormat = "yyyy.MM.dd a hh:mm"
             toDoDate.text = dateFormatter.string(from: todo.date)
         }
     }
