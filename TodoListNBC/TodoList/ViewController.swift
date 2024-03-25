@@ -15,63 +15,57 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
+        setupTableView()
         setupUI()
-        
-//        if let navigationBar = navigationController?.navigationBar {
-//                let textAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10)]
-//                navigationBar.titleTextAttributes = textAttributes
-//            }
-        
     }
     
     private func setupUI() -> Void {
         self.title = "ToDo"
-        addTodoButton()
+        addButton()
     }
     
-    func addTodoButton() {
-        
-        
+    private func addButton() {
         let button = UIButton(type: .system)
-//        let largeConfig = UIImage.SymbolConfiguration(pointSize: 40, weight: .regular, scale: .default)
         button.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
         button.tintColor = .white
         button.backgroundColor = .systemBlue
-        button.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(button)
-        
         button.layer.cornerRadius = 30
-        button.clipsToBounds = true
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowRadius = 5
+        button.layer.shadowOffset = CGSize(width: 0, height: 4)
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(button)
+        addButtonAlignment(button)
         button.addTarget(self, action: #selector(showAddTodoAlert), for: .touchUpInside)
-        animateButton(button)
-        
-        NSLayoutConstraint.activate([
-            button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30),
-            button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
-            button.widthAnchor.constraint(equalToConstant: 60), // 버튼 너비
-            button.heightAnchor.constraint(equalToConstant: 60) // 버튼 높이
-        ])
-        
         animateButton(button)
     }
     
+    // 오토레이아웃 설정
+    private func addButtonAlignment(_ button: UIButton) {
+        NSLayoutConstraint.activate([
+            button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30),
+            button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
+            button.widthAnchor.constraint(equalToConstant: 60),
+            button.heightAnchor.constraint(equalToConstant: 60)
+        ])
+    }
     
+    // addButton 애니메이션
     func animateButton(_ button: UIButton) {
-        // 버튼 "숨쉬기" 애니메이션
         UIView.animate(withDuration: 3.0, delay: 0, options: [.autoreverse, .repeat, .allowUserInteraction], animations: {
             button.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         }, completion: nil)
     }
     
+    // 새 할일 추가 Alert
     @objc func showAddTodoAlert() {
-        let alertController = UIAlertController(title: "새 할 일 추가", message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "🔥 할 일 추가 🔥", message: nil, preferredStyle: .alert)
         alertController.addTextField { textField in
-            textField.placeholder = "할 일 제목"
         }
         
-        let saveAction = UIAlertAction(title: "저장", style: .default) { [weak self] _ in
+        let saveAction = UIAlertAction(title: "추가", style: .default) { [weak self] _ in
             guard let title = alertController.textFields?.first?.text, !title.isEmpty else { return }
             self?.addNewTodo(title: title)
         }
@@ -82,43 +76,55 @@ class ViewController: UIViewController {
     }
     
     func addNewTodo(title: String) {
-        // 여기서 `ToDoModel` 인스턴스를 직접 만들어 넘기는 대신,
-        // `title`과 `isCompleted`를 넘깁니다.
         todos.addTodo(title: title, isCompleted: false)
         tableView.reloadData()
     }
+    
+    private func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
 }
 
-extension ViewController: UITableViewDataSource {
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
+    // 셀 갯수 반환
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         todos.count()
     }
     
+    // 셀 구성
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ToDoTableViewCell.Identifier, for: indexPath) as! ToDoTableViewCell
         let todo = todos.getTodo(indexPath.row)
+        
         cell.setTodo(todo)
-        cell.onCompletionToggle = { [weak self] in
-            self?.todos.toggleTodoCompletion(index: indexPath.row)
+        cell.stateCheckButton = { [weak self] in
+            self?.todos.toggleCheckButton(index: indexPath.row)
             tableView.reloadRows(at: [indexPath], with: .automatic)
         }
         return cell
     }
-
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            self.todos.removeTodo(indexPath.item)
-            tableView.beginUpdates()
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        // 삭제 액션 생성
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
+            // 할 일 목록에서 해당 항목을 삭제
+            self.todos.removeTodo(indexPath.row)
+            
+            // 테이블 뷰에서 셀을 삭제하여 UI 업데이트
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            tableView.endUpdates()
+            
+            // 액션 실행 완료 처리
+            completionHandler(true)
         }
+        
+        // 스와이프 액션 구성에 액션 추가
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        
+        // 스와이프 액션 구성 반환
+        return configuration
     }
 }
 
-extension ViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 68 // 원하는 셀의 높이로 조절
-    }
-}
+

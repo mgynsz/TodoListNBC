@@ -15,6 +15,7 @@
 		2AADF7C92BAEB0F2003AE69C /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 2AADF7C82BAEB0F2003AE69C /* Base */; };
 		2AADF7D12BAEB3A6003AE69C /* ToDoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF7D02BAEB3A6003AE69C /* ToDoTableViewCell.swift */; };
 		2AADF7D32BAEB7B3003AE69C /* ToDoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF7D22BAEB7B3003AE69C /* ToDoModel.swift */; };
+		2AD43A412BB112700025B6B2 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD43A402BB112700025B6B2 /* ToDo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		2AADF7CA2BAEB0F2003AE69C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2AADF7D02BAEB3A6003AE69C /* ToDoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewCell.swift; sourceTree = "<group>"; };
 		2AADF7D22BAEB7B3003AE69C /* ToDoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoModel.swift; sourceTree = "<group>"; };
+		2AD43A402BB112700025B6B2 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,8 +65,9 @@
 				2AADF7BC2BAEB0F1003AE69C /* AppDelegate.swift */,
 				2AADF7BE2BAEB0F1003AE69C /* SceneDelegate.swift */,
 				2AADF7C02BAEB0F1003AE69C /* ViewController.swift */,
-				2AADF7D02BAEB3A6003AE69C /* ToDoTableViewCell.swift */,
 				2AADF7D22BAEB7B3003AE69C /* ToDoModel.swift */,
+				2AD43A402BB112700025B6B2 /* ToDo.swift */,
+				2AADF7D02BAEB3A6003AE69C /* ToDoTableViewCell.swift */,
 				2AADF7C22BAEB0F1003AE69C /* Main.storyboard */,
 				2AADF7C52BAEB0F2003AE69C /* Assets.xcassets */,
 				2AADF7C72BAEB0F2003AE69C /* LaunchScreen.storyboard */,
@@ -147,6 +150,7 @@
 				2AADF7C12BAEB0F1003AE69C /* ViewController.swift in Sources */,
 				2AADF7D32BAEB7B3003AE69C /* ToDoModel.swift in Sources */,
 				2AADF7BD2BAEB0F1003AE69C /* AppDelegate.swift in Sources */,
+				2AD43A412BB112700025B6B2 /* ToDo.swift in Sources */,
 				2AADF7BF2BAEB0F1003AE69C /* SceneDelegate.swift in Sources */,
 				2AADF7D12BAEB3A6003AE69C /* ToDoTableViewCell.swift in Sources */,
 			);
