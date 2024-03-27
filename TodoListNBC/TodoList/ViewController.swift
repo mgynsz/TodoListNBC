@@ -42,7 +42,7 @@ class ViewController: UIViewController {
         animateButton(button)
     }
     
-    // 오토레이아웃 설정
+    // addButton 오토레이아웃 설정
     private func addButtonAlignment(_ button: UIButton) {
         NSLayoutConstraint.activate([
             button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -30),
