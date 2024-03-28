@@ -106,23 +106,14 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+    // 셀 삭제 액션
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        // 삭제 액션 생성
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
-            // 할 일 목록에서 해당 항목을 삭제
             self.todos.removeTodo(indexPath.row)
-            
-            // 테이블 뷰에서 셀을 삭제하여 UI 업데이트
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            
-            // 액션 실행 완료 처리
             completionHandler(true)
         }
-        
-        // 스와이프 액션 구성에 액션 추가
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
-        
-        // 스와이프 액션 구성 반환
         return configuration
     }
 }

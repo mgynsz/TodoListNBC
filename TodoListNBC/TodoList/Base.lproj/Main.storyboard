@@ -34,7 +34,6 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="60" id="Bu5-Rk-zyV"/>
                                                         <constraint firstAttribute="width" constant="60" id="Zhy-3t-Gb1"/>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="huQ-I8-CpW"/>
                                                     </constraints>
                                                     <buttonConfiguration key="configuration" style="plain" image="circle" catalog="system"/>
                                                     <connections>
@@ -127,7 +126,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="circle" catalog="system" width="32" height="32"/>
+        <image name="circle" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
